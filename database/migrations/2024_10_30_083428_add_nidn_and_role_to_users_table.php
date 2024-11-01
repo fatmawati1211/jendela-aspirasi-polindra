@@ -11,16 +11,29 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('nidn')->nullable()->unique()->after('nim'); // Menambahkan nidn
-            $table->string('role')->default('user')->after('password'); // Menambahkan role
-        });
+        // Pengecekan apakah kolom 'nidn' sudah ada
+        if (!Schema::hasColumn('users', 'nidn')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('nidn')->nullable()->after('nim'); // Menambahkan kolom 'nidn'
+            });
+        }
+
+        // Pengecekan untuk menambah kolom 'role' jika diperlukan
+        if (!Schema::hasColumn('users', 'role')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('role')->default('user')->after('nidn'); // Menambahkan kolom 'role'
+            });
+        }
     }
-    
+
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['nidn', 'role']);
+            $table->dropColumn('nidn'); // Menghapus kolom 'nidn'
+            // Menghapus kolom 'role' jika ada
+            if (Schema::hasColumn('users', 'role')) {
+                $table->dropColumn('role');
+            }
         });
-    }    
+    }
 };

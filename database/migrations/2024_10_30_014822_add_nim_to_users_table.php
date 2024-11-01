@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('nim')->unique()->after('id');
-        });
+        // Pengecekan apakah kolom 'nim' sudah ada
+        if (!Schema::hasColumn('users', 'nim')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('nim')->after('id')->unique(); // Menambahkan kolom 'nim'
+            });
+        }
     }
 
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('nim');
+            $table->dropColumn('nim'); // Menghapus kolom 'nim' saat rollback
         });
     }
 };
