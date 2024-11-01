@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f9;
+}
+
+.register-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.register-left {
+    flex: 2.5; /* Memperbesar kolom gambar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.register-right {
+    flex: 2; /* Memperkecil kolom form */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-right h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.input-group .icon {
+    margin-right: 10px; /* Space between icon and input */
+    font-size: 20px; /* Adjust icon size */
+    color: #888; /* Icon color */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    flex: 1; /* Allow input to fill remaining space */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-group label {
+    width: 40px;
+    color: #666;
+    text-align: center;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.role-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px; /* Kurangi jarak bawah */
+    font-size: 14px;
+}
+
+.role-options label {
+    margin-right: 30px; /* Kurangi jarak kanan pada label */
+    /* Jika Anda ingin mengatur lebih jauh, bisa tambahkan margin-left pada label kedua */
+}
+
+/* Jika ingin menambahkan padding atau jarak lebih kecil */
+.role-options input[type="radio"] {
+    margin-left: 50px; /* Menambahkan sedikit jarak pada radio button */
+}
+
+.btn-register-now {
+    width: 100%;
+    padding: 10px;
+    background-color: #004d40;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-register-now:hover {
+    background-color: #003d33;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #004d40;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

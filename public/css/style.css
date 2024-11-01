@@ -1,0 +1,146 @@
+/* styles.css */
+
+.navbar {
+    background-color: #083450;
+}
+
+.header-section h1, .header-section p {
+    color: #fff;
+}
+
+.about-section {
+    color: #083450;
+}
+
+.statistics-section {
+    background-color: #e0f7fa;
+}
+
+footer {
+    background-color: #083450;
+    color: #fff;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.left-side, .right-side {
+    width: 50%;
+    padding: 30px;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+.left-side h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.left-side p {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.image-lock {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.image-lock .icon {
+    width: 100%;
+    height: 100%;
+}
+
+.image-lock .lock {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.profile-icon {
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-group .icon-envelope, .input-group .icon-lock {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.login-button {
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #0056b3;
+}
