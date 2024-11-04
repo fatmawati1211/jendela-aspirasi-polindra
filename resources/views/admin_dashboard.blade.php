@@ -162,7 +162,7 @@
                     <div class="card bg-green mb-3">
                         <div class="card-body">
                             <h3>20</h3>
-                            <p>Laporan Di Selesai</p>
+                            <p>Laporan Selesai</p>
                         </div>
                         <div class="info-overlay">
                             <a href="#" class="text-white">More Info <i class="bi bi-info-circle"></i></a>
