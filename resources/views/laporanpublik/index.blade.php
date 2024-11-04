@@ -19,7 +19,7 @@
         }
         .post {
             border-bottom: 1px solid #ddd;
-            padding: 20px 0;
+            padding: 10px;
         }
         .post-header {
             display: flex;
@@ -33,6 +33,7 @@
         }
         .post-body {
             margin-top: 10px;
+            font-size: 1.2rem; /* Ukuran font yang diperbesar */
         }
         .post-body img {
             max-width: 100%;
@@ -43,18 +44,31 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             color: #000;
             padding: 15px;
+            margin-top: 30px; /* Adjusted margin */
             border-radius: 8px;
+            background-color: #F3F6F8; /* Set background color */
         }
         .trending-title {
             font-weight: bold;
             margin-bottom: 10px;
+            font-size: 2rem; /* Increase title font size */
+            padding: 10px; /* Add padding for better appearance */
         }
         .trending-topics li {
-            margin-bottom: 10px;
+            margin-bottom: 7px;
             list-style: none;
+            font-size: 1.3rem; /* Increase list item font size */
+            padding: 10px; /* Add padding for better appearance */
         }
         .trending-topics span {
             color: #555;
+            padding: 10px; /* Add padding for better appearance */
+        }
+        .back-arrow {
+            color: #666666; /* Light gray color */
+            font-size: 1.7rem; /* Adjust icon size */
+            margin: 20px 20px; /* Adjust margin for better positioning */
+            display: block; /* Ensure it's a block element for spacing */
         }
     </style>
 </head>
@@ -66,6 +80,12 @@
         </a>
     </nav>
 
+    <!-- Back Arrow -->
+    <a href="{{ route('admin.dashboard') }}" class="back-arrow">
+        <i class="bi bi-arrow-left"></i>
+    </a>
+
+    <!-- Content -->
     <div class="container content">
         <div class="row">
             <!-- Left Side - Posts -->
@@ -151,15 +171,28 @@
             <!-- Right Side - Trending Topics -->
             <div class="col-md-4">
                 <div class="trending-topics">
-                    <div class="trending-title">Tren untuk Anda</div>
+                    <div class="trending-title">Trending Topics</div>
                     <ul class="list-unstyled">
-                        <li>Hiburan · Populer<br>TV One <span class="text-muted">17,3 rb posts</span></li>
-                        <li>K-pop · Populer<br>#GDRAGON_POWER <span class="text-muted">23,7 rb posts</span></li>
-                        <li>Sedang tren dalam topik Indonesia<br>#BABYMONSTER_CLIKCLAK_MV <span class="text-muted">32,2 rb posts</span></li>
-                        <li>Sedang tren dalam topik Indonesia<br>Rosalia <span class="text-muted">9.887 posts</span></li>
-                        <li>Sedang tren dalam topik Indonesia<br>Unmag <span class="text-muted">5.096 posts</span></li>
-                        <li>Musik · Populer<br>KELAKUAN 2024 <span class="text-muted">1.841 posts</span></li>
-                        <li>Sedang tren dalam topik Indonesia<br>#ByeonWooSeok <span class="text-muted">18,5 rb posts</span></li>
+                        <li>
+                            <strong># Bullying</strong>
+                            <br><span class="text-muted">(5.220 posts)</span>
+                        </li>
+                        <li>
+                            <strong># UKTMahal</strong>
+                            <br><span class="text-muted">(1.182 posts)</span>
+                        </li>
+                        <li>
+                            <strong># PencemaranNamaBaik</strong>
+                            <br><span class="text-muted">(231 ribu posts)</span>
+                        </li>
+                        <li>
+                            <strong># Pelecehan</strong>
+                            <br><span class="text-muted">(34,6 ribu posts)</span>
+                        </li>
+                        <li>
+                            <strong># FasilitasRusak</strong>
+                            <br><span class="text-muted">(20,7 ribu posts)</span>
+                        </li>
                     </ul>
                 </div>
             </div>

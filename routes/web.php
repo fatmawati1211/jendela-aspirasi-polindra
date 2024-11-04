@@ -57,3 +57,4 @@ Route::post('/register/admin', [RegisterController::class, 'registerAdmin']);
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::get('/laporanpublik', [LaporanPublikController::class, 'index'])->name('laporanpublik.index');
+

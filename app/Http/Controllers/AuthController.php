@@ -18,19 +18,29 @@ class AuthController extends Controller
     // Proses login
     public function login(Request $request)
     {
+        // Validasi input
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        // Mencoba login dengan email dan password
         if (Auth::attempt($request->only('email', 'password'))) {
+            // Cek peran pengguna
             if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('dashboard');
+                return redirect()->route('admin.dashboard'); // Redirect ke dashboard admin
+            } 
+        }
+
+        // Mencoba login dengan email dan password
+        if (Auth::attempt($request->only('email', 'password'))) {
+            // Cek peran pengguna
+            if (Auth::user()->role === 'user') {
+                return redirect()->route('dashboard'); // Redirect ke dashboard user
             }
         }
 
+        // Kembali dengan error jika login gagal
         return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
@@ -43,6 +53,7 @@ class AuthController extends Controller
     // Proses registrasi
     public function register(Request $request)
     {
+        // Validasi input untuk registrasi
         $request->validate([
             'nim' => 'nullable|string|max:255',
             'nidn' => 'nullable|string|max:255',
@@ -51,11 +62,12 @@ class AuthController extends Controller
             'role' => 'required|string|in:user,admin', // Validasi role
         ]);
 
+        // Membuat user baru
         User::create([
-            'nim' => $request->nim,  // Menyimpan nilai nim
-            'nidn' => $request->nidn,  // Menyimpan nilai nidn
+            'nim' => $request->nim,  
+            'nidn' => $request->nidn,  
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password), // Enkripsi password
             'role' => $request->role, // Menyimpan role
         ]);
 
@@ -65,7 +77,7 @@ class AuthController extends Controller
     // Logout
     public function logout()
     {
-        Auth::logout();
-        return redirect('/login');
+        Auth::logout(); // Logout pengguna
+        return redirect('/login'); // Redirect ke halaman login
     }
 }

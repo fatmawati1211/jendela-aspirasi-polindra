@@ -1,16 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-public function login(Request $request)
+class LoginController extends Controller
 {
-    $credentials = $request->only('email', 'password');
-
-    if (Auth::attempt($credentials)) {
-        // Login berhasil, arahkan ke dashboard
-        return redirect()->route('dashboard');
+    protected function redirectTo()
+    {
+        if (Auth::user()->role === 'admin') {
+            return route('admin.dashboard');
+        } else {
+            return route('dashboard');
+        }
     }
-
-    // Jika login gagal, kembali ke halaman login dengan pesan error
-    return redirect()->back()->withErrors([
-        'email' => 'Email atau password tidak cocok.',
-    ]);
+    
 }
