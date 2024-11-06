@@ -1,25 +1,16 @@
 <?php
 
-// app/Http/Controllers/LaporanController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB; // Tambahkan baris ini untuk mengimpor DB facade
 
 class LaporanPublikController extends Controller
 {
     public function index()
     {
-        // Data laporan contoh (biasanya diambil dari database)
-        $laporanpublik = [
-            [
-                'username' => 'Anonim',
-                'tanggal' => 'October 20, 2024 at 8:16 pm',
-                'isi' => 'Spiffing good time burke give us a bell...',
-                'gambar' => 'path/to/image.jpg'
-            ],
-            // Tambahkan laporanpublik lainnya sesuai kebutuhan
-        ];
+        // Mengambil semua data laporan dari tabel 'reports' menggunakan Query Builder
+        $laporanpublik = DB::table('reports')->get();
 
         // Data trending topics contoh (biasanya dihitung dari database)
         $trendingTopics = [
@@ -33,4 +24,3 @@ class LaporanPublikController extends Controller
         return view('laporanpublik.index', compact('laporanpublik', 'trendingTopics'));
     }
 }
-

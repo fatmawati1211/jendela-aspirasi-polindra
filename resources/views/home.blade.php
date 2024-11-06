@@ -94,6 +94,14 @@
         <a class="navbar-brand" href="#">
             <img src="{{ asset(path: 'img/logo.png') }}" alt="Logo" style="width: 150px;">
         </a>
+        <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#tentang-kami">Tentang Kami</a></li>

@@ -75,8 +75,8 @@
                 @csrf
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="category" class="form-label">Kategori Laporan</label>
-                        <select id="category" name="category" class="form-select" required>
+                        <label for="kategori_laporan" class="form-label">Kategori Laporan</label>
+                        <select id="kategori_laporan" name="kategori_laporan" class="form-select" required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             <option value="bullying">Bullying</option>
                             <option value="pelecehan_seksual">Pelecehan Seksual</option>
@@ -87,23 +87,23 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="file" class="form-label">Lampirkan File</label>
-                        <input type="file" id="file" name="file" class="form-control">
+                        <label for="file_terlampir" class="form-label">Lampirkan File</label>
+                        <input type="file" id="file_terlampir" name="file_terlampir" class="form-control">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
-                    <textarea id="description" name="description" class="form-control" rows="4"></textarea>
+                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                    <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"></textarea>
                 </div>
 
                 <div class="mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="public" name="privacy" value="public" required>
+                        <input class="form-check-input" type="radio" id="public" name="kategori_privasi" value="public" required>
                         <label class="form-check-label" for="public">Publik</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="private" name="privacy" value="private">
+                        <input class="form-check-input" type="radio" id="private" name="kategori_privasi" value="private">
                         <label class="form-check-label" for="private">Private</label>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                 <div class="modal-body text-center">
                     <p>Pastikan laporan Anda ditulis dengan jelas dan lengkap</p>
                     <div class="d-flex justify-content-center">
-                        <a href="{{ url('/') }}" class="btn btn-primary me-2">Edit Laporan</a>
+                        <a href="{{ url('/dashboard') }}" class="btn btn-primary me-2">Edit Laporan</a>
                         <button id="submitReport" class="btn btn-danger">Siap Kirim</button>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi -->
+    <!-- Modal Sukses -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -170,19 +170,18 @@
         // Menampilkan modal sukses
         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
         successModal.show();
-    });
-
-    document.getElementById('homeButton').addEventListener('click', function () {
-        // Menyimpan form
-        var form = document.getElementById('reportForm');
-        form.submit(); // Mengirim form
 
         // Arahkan ke halaman dashboard setelah sedikit delay untuk memastikan form terkirim
         setTimeout(function() {
-            window.location.href = '{{ url("/dashboard") }}'; // Ganti URL ini jika berbeda
-        }, 100); // Delay 100 ms
+            var form = document.getElementById('reportForm');
+            form.submit(); // Mengirim form
+        }, 500); // Delay 500 ms untuk memastikan modal sukses ditampilkan terlebih dahulu
     });
-</script>
+
+    document.getElementById('homeButton').addEventListener('click', function () {
+        window.location.href = '{{ url("/dashboard") }}'; // Ganti URL ini jika berbeda
+    });
+    </script>
 
 </body>
 </html>
