@@ -4,18 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Report extends Model
 {
     use HasFactory;
 
-    protected $table = 'reports'; // Menentukan nama tabel jika tidak mengikuti konvensi
+    protected $table = 'reports';
 
-    // Daftar kolom yang dapat diisi (mass assignable)
+    protected $connection = 'jap_db';
+    
     protected $fillable = [
         'kategori_laporan',
-        'file_terlampir',
         'deskripsi',
+        'file_terlampir',
         'kategori_privasi',
+        'status'
     ];
+
+    // Accessor untuk mendapatkan URL file terlampir
+    public function getFileTerlampirUrlAttribute()
+    {
+        return $this->file_terlampir ? Storage::url($this->file_terlampir) : null;
+    }
 }

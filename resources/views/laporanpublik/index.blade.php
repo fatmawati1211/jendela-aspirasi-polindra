@@ -18,7 +18,6 @@
             margin-top: 20px;
         }
         .post {
-            border-bottom: 1px solid #ddd;
             padding: 10px;
         }
         .post-header {
@@ -33,42 +32,26 @@
         }
         .post-body {
             margin-top: 10px;
-            font-size: 1.2rem; /* Ukuran font yang diperbesar */
+            font-size: 1.2rem;
         }
         .post-body img {
+            display: block;
+            margin: 15px auto;
             max-width: 100%;
             height: auto;
             max-height: 500px;
         }
-        .trending-topics {
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            color: #000;
-            padding: 15px;
-            margin-top: 30px; /* Adjusted margin */
-            border-radius: 8px;
-            background-color: #F3F6F8; /* Set background color */
-        }
-        .trending-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 2rem; /* Increase title font size */
-            padding: 10px; /* Add padding for better appearance */
-        }
-        .trending-topics li {
-            margin-bottom: 7px;
-            list-style: none;
-            font-size: 1.3rem; /* Increase list item font size */
-            padding: 10px; /* Add padding for better appearance */
-        }
-        .trending-topics span {
-            color: #555;
-            padding: 10px; /* Add padding for better appearance */
+        .divider {
+            border: 0;
+            height: 3px; /* Increased thickness of the divider */
+            background-color: #888; /* Darker gray color for better visibility */
+            margin: 20px 0;
         }
         .back-arrow {
-            color: #666666; /* Light gray color */
-            font-size: 1.7rem; /* Adjust icon size */
-            margin: 20px 20px; /* Adjust margin for better positioning */
-            display: block; /* Ensure it's a block element for spacing */
+            color: #666666;
+            font-size: 1.7rem;
+            margin: 20px 20px;
+            display: block;
         }
     </style>
 </head>
@@ -76,7 +59,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 150px;">
+            <img src="{{ asset(path: 'img/logo.png') }}" alt="Logo" style="width: 60px;">
         </a>
     </nav>
 
@@ -87,114 +70,38 @@
 
     <!-- Content -->
     <div class="container content">
-        <div class="row">
-            <!-- Left Side - Posts -->
-            <div class="col-md-8">
-                <!-- Post 1 - Bullying -->
+        <div class="row justify-content-center">
+            <div class="col-md-12 mx-auto">
+                @if($reports->isEmpty())
+                    <p>No public reports available.</p>
+                @else
+                @foreach ($reports as $report)
                 <div class="post">
                     <div class="post-header">
-                        <img src="img/user-profil.png" alt="User Icon">
+                        <img src="{{ asset('img/user-profil.png') }}" alt="User Icon">
                         <div>
-                            <span>Anonim</span>
+                            <span>{{ $report->user_name ?? 'Anonim' }}</span>
                             <br>
-                            <i class="bi bi-calendar"></i> 20 Oktober 2024, 08:16 PM
+                            <i class="bi bi-calendar"></i> {{ \Carbon\Carbon::parse($report->created_at)->format('d F Y, h:i A') }}
                         </div>
                     </div>
                     <div class="post-body">
-                        <p>Pengaduan mengenai kasus bullying yang terjadi di lingkungan sekolah. Memerlukan perhatian lebih dari pihak berwenang.</p>
-                        <img src="img/bullying.jpg" alt="Bullying Image" class="img-fluid mt-2">
-                    </div>
-                </div>
+                        <p>{{ $report->deskripsi }}</p>
 
-                <!-- Post 2 - Pencemaran Nama Baik -->
-                <div class="post">
-                    <div class="post-header">
-                        <img src="img/user-profil.png" alt="User Icon">
-                        <div>
-                            <span>Anonim</span>
-                            <br>
-                            <i class="bi bi-calendar"></i> 19 Oktober 2024, 05:12 PM
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <p>Laporan pencemaran nama baik di media sosial yang menyebabkan kerugian besar bagi korban.</p>
+                        <!-- Check if there is an image file -->
+                        @if ($report->file_terlampir)
+                            <div class="mt-3">
+                                <img src="{{ asset('storage/' . $report->file_terlampir) }}" alt="File Terlampir" class="img-fluid mt-2">
+                            </div>
+                        @endif
                     </div>
                 </div>
-
-                <!-- Post 3 - Fasilitas Rusak -->
-                <div class="post">
-                    <div class="post-header">
-                        <img src="img/user-profil.png" alt="User Icon">
-                        <div>
-                            <span>Anonim</span>
-                            <br>
-                            <i class="bi bi-calendar"></i> 18 Oktober 2024, 09:45 AM
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <p>Fasilitas umum yang rusak, seperti toilet dan bangku taman, memerlukan perbaikan segera.</p>
-                        <img src="img/fasilitas-rusak.jpg" alt="Damaged Facility Image" class="img-fluid mt-2">
-                    </div>
-                </div>
-
-                <!-- Post 4 - Kekerasan Seksual -->
-                <div class="post">
-                    <div class="post-header">
-                        <img src="img/user-profil.png" alt="User Icon">
-                        <div>
-                            <span>Anonim</span>
-                            <br>
-                            <i class="bi bi-calendar"></i> 17 Oktober 2024, 02:33 PM
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <p>Laporan tentang kekerasan seksual yang terjadi di lingkungan kerja. Korban meminta bantuan dari lembaga yang berwenang.</p>
-                    </div>
-                </div>
-
-                <!-- Post 5 - Kasus Lainnya -->
-                <div class="post">
-                    <div class="post-header">
-                        <img src="img/user-profil.png" alt="User Icon">
-                        <div>
-                            <span>Anonim</span>
-                            <br>
-                            <i class="bi bi-calendar"></i> 16 Oktober 2024, 11:22 AM
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <p>Pengaduan lain terkait keluhan pelayanan publik yang kurang memuaskan.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side - Trending Topics -->
-            <div class="col-md-4">
-                <div class="trending-topics">
-                    <div class="trending-title">Trending Topics</div>
-                    <ul class="list-unstyled">
-                        <li>
-                            <strong># Bullying</strong>
-                            <br><span class="text-muted">(5.220 posts)</span>
-                        </li>
-                        <li>
-                            <strong># UKTMahal</strong>
-                            <br><span class="text-muted">(1.182 posts)</span>
-                        </li>
-                        <li>
-                            <strong># PencemaranNamaBaik</strong>
-                            <br><span class="text-muted">(231 ribu posts)</span>
-                        </li>
-                        <li>
-                            <strong># Pelecehan</strong>
-                            <br><span class="text-muted">(34,6 ribu posts)</span>
-                        </li>
-                        <li>
-                            <strong># FasilitasRusak</strong>
-                            <br><span class="text-muted">(20,7 ribu posts)</span>
-                        </li>
-                    </ul>
-                </div>
+                
+                <!-- Garis Pembatas -->
+                <hr class="divider">
+                
+                @endforeach
+                @endif
             </div>
         </div>
     </div>

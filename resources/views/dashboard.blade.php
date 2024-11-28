@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -44,13 +43,27 @@
             padding: 20px;
             margin: 0 10px;
         }
+        
+        /* Menetapkan ukuran tetap untuk gambar */
+        .img-thumbnail, .card-img-top {
+            width: 100%;
+            height: auto;  /* Biarkan tinggi otomatis sesuai rasio gambar */
+            object-fit: cover; /* Menjaga proporsi gambar dengan memotong bagian yang berlebih */
+        }
+
+        /* Responsif untuk tampilan kecil */
+        @media (max-width: 768px) {
+            .img-thumbnail, .card-img-top {
+                height: 150px; /* Mengurangi tinggi pada layar kecil */
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 150px;">
+            <img src="{{ asset(path: 'img/logo.png') }}" alt="Logo" style="width: 60px;">
         </a>
         <div class="ms-auto d-flex align-items-center" style="margin-right: 20px;">
             <div class="btn-group">
@@ -59,7 +72,9 @@
                     <span class="username">User</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><div class="dropdown-item">user@gmail.com</div></li>
+                    <li>
+                        <div class="dropdown-item">{{ Auth::user()->email }}</div>
+                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
@@ -71,19 +86,19 @@
     <div class="container mt-4">
         <div class="form-container p-4" style="background-color: rgba(217, 217, 217, 0.3); border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
             <h2 class="text-center mb-4">Form Laporan</h2>
-            <form id="reportForm" action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="reportForm" action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col">
                         <label for="kategori_laporan" class="form-label">Kategori Laporan</label>
                         <select id="kategori_laporan" name="kategori_laporan" class="form-select" required>
                             <option value="" disabled selected>Pilih Kategori</option>
-                            <option value="bullying">Bullying</option>
-                            <option value="pelecehan_seksual">Pelecehan Seksual</option>
-                            <option value="kekerasan">Kekerasan</option>
-                            <option value="pencemaran_nama_baik">Pencemaran Nama Baik</option>
-                            <option value="fasilitas_kampus">Fasilitas Kampus</option>
-                            <option value="lainnya">Lainnya</option>
+                            <option value="Bullying">Bullying</option>
+                            <option value="Pelecehan">Pelecehan</option>
+                            <option value="Kekerasan">Kekerasan</option>
+                            <option value="Pencemaran Nama Baik">Pencemaran Nama Baik</option>
+                            <option value="Fasilitas Kampus">Fasilitas Kampus</option>
+                            <option value="Lainnya">Lainnya</option>
                         </select>
                     </div>
                     <div class="col">
@@ -91,28 +106,27 @@
                         <input type="file" id="file_terlampir" name="file_terlampir" class="form-control">
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <label for="deskripsi" class="form-label">Deskripsi</label>
-                    <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"></textarea>
+                    <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4" required></textarea>
                 </div>
 
                 <div class="mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="public" name="kategori_privasi" value="public" required>
-                        <label class="form-check-label" for="public">Publik</label>
+                        <input class="form-check-input" type="radio" id="kategori_privasi" name="kategori_privasi" value="Publik" required>
+                        <label class="form-check-label" for="Publik">Publik</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="private" name="kategori_privasi" value="private">
-                        <label class="form-check-label" for="private">Private</label>
+                        <input class="form-check-input" type="radio" id="kategori_privasi" name="kategori_privasi" value="Privat">
+                        <label class="form-check-label" for="Privat">Private</label>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center mb-3">
-                    <button type="button" class="btn btn-danger btn-custom" id="submitButton" style="flex-grow: 1; text-align: center;">Laporkan</button>
+                    <button type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#confirmationModal">Kirim Laporan</button>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a href="{{ url('/') }}" class="btn btn-primary btn-custom" style="flex-grow: 1; text-align: center;">Kembali ke Halaman Utama</a>
+                    <a href="{{ url('/beranda') }}" class="btn btn-primary btn-custom">Lihat Beranda Laporan</a>
                 </div>
             </form>
         </div>
@@ -129,8 +143,8 @@
                 <div class="modal-body text-center">
                     <p>Pastikan laporan Anda ditulis dengan jelas dan lengkap</p>
                     <div class="d-flex justify-content-center">
-                        <a href="{{ url('/dashboard') }}" class="btn btn-primary me-2">Edit Laporan</a>
-                        <button id="submitReport" class="btn btn-danger">Siap Kirim</button>
+                        <button type="button" class="btn btn-primary me-2" data-bs-dismiss="modal">Edit Laporan</button>
+                        <button id="submitReport" type="button" class="btn btn-danger" onclick="submitForm()">Siap Kirim</button>
                     </div>
                 </div>
             </div>
@@ -154,34 +168,15 @@
     </div>
 
     <!-- Include Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    document.getElementById('submitButton').addEventListener('click', function () {
-        var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-        modal.show();
-    });
-
-    document.getElementById('submitReport').addEventListener('click', function () {
-        // Menyembunyikan modal konfirmasi
-        var modalConfirmation = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
-        modalConfirmation.hide();
-
-        // Menampilkan modal sukses
-        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
-        successModal.show();
-
-        // Arahkan ke halaman dashboard setelah sedikit delay untuk memastikan form terkirim
-        setTimeout(function() {
-            var form = document.getElementById('reportForm');
-            form.submit(); // Mengirim form
-        }, 500); // Delay 500 ms untuk memastikan modal sukses ditampilkan terlebih dahulu
-    });
-
-    document.getElementById('homeButton').addEventListener('click', function () {
-        window.location.href = '{{ url("/dashboard") }}'; // Ganti URL ini jika berbeda
-    });
+        function submitForm() {
+            // Kirim form
+            document.getElementById('reportForm').submit();
+            // Tampilkan modal sukses setelah form terkirim
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            myModal.show();
+        }
     </script>
-
 </body>
 </html>

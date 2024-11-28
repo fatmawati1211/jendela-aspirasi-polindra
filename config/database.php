@@ -61,6 +61,21 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        
+        'jap_db' => [
+        'driver' => 'mysql',
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => env('DB_PORT', '3306'),
+        'database' => env('JAP_DB_DATABASE', 'jap_db'),  // Make sure the name is jap_db
+        'username' => env('JAP_DB_USERNAME', 'root'),    // Set the appropriate database username
+        'password' => env('JAP_DB_PASSWORD', ''),        // Set the appropriate database password
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+        'engine' => null,
+    ],
 
         'mariadb' => [
             'driver' => 'mariadb',

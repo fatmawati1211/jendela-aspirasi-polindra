@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use DB; // Tambahkan baris ini untuk mengimpor DB facade
 
 class LaporanPublikController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data laporan dari tabel 'reports' menggunakan Query Builder
-        $laporanpublik = DB::table('reports')->get();
+        // Mengambil data laporan tanpa syarat kategori, hanya dengan status 'selesai'
+        $laporanpublik = Report::where('status', 'selesai')->get();
 
-        // Data trending topics contoh (biasanya dihitung dari database)
-        $trendingTopics = [
-            'Bullying' => '5,220 posts',
-            'UKT Mahal' => '1,182 posts',
-            'Pencemaran Nama Baik' => '231 rb posts',
-            'Pelecehan' => '34,6 rb posts',
-            'Fasilitas Rusak' => '20,7 rb posts'
-        ];
+        // Fetch reports with specific criteria
+        $reports = DB::connection('mysql')
+            ->table('reports')
+            ->where('kategori_privasi', 'publik')
+            ->where('status', 'selesai')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
 
-        return view('laporanpublik.index', compact('laporanpublik', 'trendingTopics'));
+        // Pass data to the view
+        return view('laporanpublik.index', compact('laporanpublik', 'reports'));
     }
 }
